@@ -24,7 +24,7 @@ public class ShowData extends AppCompatActivity {
         dbHelper = new DatabaseHelper(ShowData.this);
 
         Cursor cursor = dbHelper.getAllData(); //shob data ekhon cursor er moddhe chole ashche
-        tvDisplay.setText("Total Data= "+cursor.getCount());
+        tvDisplay.setText("Total Data = "+cursor.getCount());
 
     }
 }
