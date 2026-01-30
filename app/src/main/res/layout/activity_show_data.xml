@@ -14,8 +14,7 @@
         android:id="@+id/tvDisplay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Result here"
-        android:textSize="30dp"
+        android:textSize="20dp"
         android:textColor="#030505"
         android:layout_marginTop="40dp"
 
