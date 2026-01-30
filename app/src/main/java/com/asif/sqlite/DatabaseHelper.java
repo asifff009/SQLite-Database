@@ -2,6 +2,7 @@ package com.asif.sqlite;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -38,6 +39,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         database.insert("my_table", null, conval);
 
+    }
+
+    public Cursor getAllData(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from my_table",null); //database theke data read korte raw querry use kori amra
+        //raw querry er return type holo Cursor..
+        return cursor;
     }
 
 
