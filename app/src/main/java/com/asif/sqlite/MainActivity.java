@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         buttonInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // insert er code hobe ekhane
+                // insert er code hobe ekhane..
 
                 dbHelper.insertData(edName.getText().toString(), edMobile.getText().toString());
                 Toast.makeText(MainActivity.this, "Data has been inserted", Toast.LENGTH_SHORT).show();

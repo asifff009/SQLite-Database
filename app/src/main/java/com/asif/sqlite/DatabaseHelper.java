@@ -48,5 +48,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
+    public Cursor searchDataByID(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from my_table where id like '"+id+"' ",null); //database theke data read korte raw querry use kori amra
+        //raw querry er return type holo Cursor..
+        return cursor;
+    }
+
 
 }
