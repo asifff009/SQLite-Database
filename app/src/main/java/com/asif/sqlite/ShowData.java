@@ -2,17 +2,15 @@ package com.asif.sqlite;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.widget.SearchView;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class ShowData extends AppCompatActivity {
 
     TextView tvDisplay;
+    SearchView searchView;
     DatabaseHelper dbHelper;
 
     @Override
@@ -21,18 +19,64 @@ public class ShowData extends AppCompatActivity {
         setContentView(R.layout.activity_show_data);
 
         tvDisplay = findViewById(R.id.tvDisplay);
-        dbHelper = new DatabaseHelper(ShowData.this);
+        searchView = findViewById(R.id.searchView);
+        dbHelper = new DatabaseHelper(this);
 
-        Cursor cursor = dbHelper.searchDataByName("Asif"); //shob data ekhon cursor er moddhe chole ashche
-        //tvDisplay.setText("Total Data = "+cursor.getCount());
+        // App open hole shob data dekhabe
+        showAllData();
 
-        int x = 0;
-        while (cursor.moveToNext()){
-            int id = cursor.getInt(0);
-            String name = cursor.getString(1);
-            String mobile = cursor.getString(2); // 0,1,2 kon column sheita bujhay
-            tvDisplay.append("ID : "+id+" Name : "+name+" Mobile : "+mobile+"\n");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchData(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                searchData(newText);
+                return true;
+            }
+        });
+    }
+
+    private void showAllData() {
+        tvDisplay.setText("");
+        Cursor cursor = dbHelper.getAllData();
+
+        if (cursor.getCount() == 0) {
+            tvDisplay.setText("No data found");
+            cursor.close();
+            return;
         }
 
+        while (cursor.moveToNext()) {
+            tvDisplay.append(
+                    "ID: " + cursor.getInt(0) +
+                            " Name: " + cursor.getString(1) +
+                            " Mobile: " + cursor.getString(2) + "\n"
+            );
+        }
+        cursor.close();
+    }
+
+    private void searchData(String name) {
+        tvDisplay.setText("");
+        Cursor cursor = dbHelper.searchDataByName(name);
+
+        if (cursor.getCount() == 0) {
+            tvDisplay.setText("No match found");
+            cursor.close();
+            return;
+        }
+
+        while (cursor.moveToNext()) {
+            tvDisplay.append(
+                    "ID: " + cursor.getInt(0) +
+                            " Name: " + cursor.getString(1) +
+                            " Mobile: " + cursor.getString(2) + "\n"
+            );
+        }
+        cursor.close();
     }
 }
