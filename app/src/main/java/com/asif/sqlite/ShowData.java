@@ -23,7 +23,7 @@ public class ShowData extends AppCompatActivity {
         tvDisplay = findViewById(R.id.tvDisplay);
         dbHelper = new DatabaseHelper(ShowData.this);
 
-        Cursor cursor = dbHelper.searchDataByID(3); //shob data ekhon cursor er moddhe chole ashche
+        Cursor cursor = dbHelper.searchDataByName("Asif"); //shob data ekhon cursor er moddhe chole ashche
         //tvDisplay.setText("Total Data = "+cursor.getCount());
 
         int x = 0;
